@@ -17,6 +17,10 @@ type info struct {
 	Description   string `json:"description"`
 }
 
+type app struct {
+	AppName []info `json:"myapplication"`
+}
+
 type health struct {
 	Health string `json:"health"`
 }
@@ -44,11 +48,13 @@ func main() {
 }
 
 func healthCheck(w http.ResponseWriter, r *http.Request) {
-	health := health{
+
+	myHealth := health{
 		Health: "Still alive!",
 	}
 
-	healthJSON, err := json.Marshal(health)
+	healthJSON, err := json.Marshal(myHealth)
+
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -63,11 +69,13 @@ func healthCheck(w http.ResponseWriter, r *http.Request) {
 }
 
 func hello(w http.ResponseWriter, r *http.Request) {
-	welcome := welcome {
+
+	myWelcome := welcome {
 		Welcome: "Hello World!",
 	}
 
-	welcomeJSON, err := json.Marshal(welcome)
+	welcomeJSON, err := json.Marshal(myWelcome)
+
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -85,13 +93,23 @@ func getInfo(w http.ResponseWriter, r *http.Request) {
 	var version = os.Getenv("VERSION")
 	var lastCommitSHA = os.Getenv("LAST_COMMIT_SHA")
 
-	info := info{
+
+	myInfo := info{
+
 		Version:       version,
 		LastCommitSHA: lastCommitSHA,
 		Description:   "pre-interview technical test",
 	}
 
-	infoJSON, err := json.Marshal(info)
+
+	myApp := app{
+		AppName: []info{
+			myInfo,
+		},
+	}
+
+	infoJSON, err := json.Marshal(myApp)
+
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}

@@ -1,0 +1,14 @@
+language: go
+
+services:
+- docker
+go:
+- '1.11'
+
+script:
+  - go test -v ./...
+  - docker build . --build-arg version="v0.0.1" --build-arg ${TRAVIS_COMMIT} -t sgrzebieta/api-test:latest
+  - docker tag sgrzebieta/api-test:latest sgrzebieta/api-test:${TRAVIS_BUILD_ID}.${TRAVIS_BUILD_NUMBER}
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push sgrzebieta/api-test:latest
+  - docker push sgrzebieta/api-test:${TRAVIS_BUILD_ID}.${TRAVIS_BUILD_NUMBER}
