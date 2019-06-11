@@ -1,10 +1,5 @@
 language: go
 
-branches:
-  only:
-  - master
-  - /^feature.*$/
-
 services:
   - docker
 
