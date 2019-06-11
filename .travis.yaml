@@ -1,9 +1,9 @@
 language: go
 
-addons:
-  apt:
-    packages:
-      - docker-ce
+branches:
+  only:
+  - master
+  - /^feature.*$/
 
 services:
   - docker
