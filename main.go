@@ -48,11 +48,13 @@ func main() {
 }
 
 func healthCheck(w http.ResponseWriter, r *http.Request) {
+
 	myHealth := health{
 		Health: "Still alive!",
 	}
 
 	healthJSON, err := json.Marshal(myHealth)
+
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -67,11 +69,13 @@ func healthCheck(w http.ResponseWriter, r *http.Request) {
 }
 
 func hello(w http.ResponseWriter, r *http.Request) {
+
 	myWelcome := welcome {
 		Welcome: "Hello World!",
 	}
 
 	welcomeJSON, err := json.Marshal(myWelcome)
+
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -89,11 +93,14 @@ func getInfo(w http.ResponseWriter, r *http.Request) {
 	var version = os.Getenv("VERSION")
 	var lastCommitSHA = os.Getenv("LAST_COMMIT_SHA")
 
+
 	myInfo := info{
+
 		Version:       version,
 		LastCommitSHA: lastCommitSHA,
 		Description:   "pre-interview technical test",
 	}
+
 
 	myApp := app{
 		AppName: []info{
@@ -102,6 +109,7 @@ func getInfo(w http.ResponseWriter, r *http.Request) {
 	}
 
 	infoJSON, err := json.Marshal(myApp)
+
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
